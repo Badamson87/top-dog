@@ -18,7 +18,7 @@ router.post('/login', (req, res, next) => {
 router.post('/register', (req, res, next) => {
   // @ts-ignore
   let hash = Users.hashPassword(req.body.password)
-  Users.create({ email: req.body.email, hash })
+  Users.create({ userName:req.body.userName, email: req.body.email, hash })
     .then(user => {
       delete user._doc.hash
       req.session.uid = user._id
@@ -29,6 +29,7 @@ router.post('/register', (req, res, next) => {
     })
 })
 
+//logout
 router.delete('/logout', (req, res, next) => {
   req.session.destroy(err => {
     if (err) {

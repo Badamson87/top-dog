@@ -2,7 +2,7 @@ let mongoose = require('mongoose')
 let bcrypt = require('bcryptjs')
 let Schema = mongoose.Schema
 // let ObjectId = Schema.Types.ObjectId commenting out because we dont think we need it
-const SALT = 15
+const SALT = 10
 let name = "User"
 
 //user schema
@@ -10,6 +10,7 @@ let schema = new Schema({
   userName: { type: String, required: true, unique:true},
   email: { type: String, required: true, unique: true },
   hash: { type: String, required: true },
+  bio: {type: String}
 }) 
 
 //Hashes a password (used when password created/changed)
