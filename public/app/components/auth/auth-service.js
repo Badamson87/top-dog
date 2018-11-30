@@ -1,3 +1,4 @@
+//@ts-ignore
 let _auth = axios.create({
   baseURL: '/account',
   withCreadential: true,
