@@ -5,7 +5,7 @@ let _authService = {}
 //login
 function drawUserLogin() {
   console.log('not logged in')
-  document.getElementById('auth').innerHTML = `
+  document.getElementById('main-content').innerHTML = `
   <form onsubmit="app.controllers.authController.login(event)">
     <input type="email" name="email" placeholder="email" required>
     <input type="password" name="password" placeholder="password" required>
@@ -19,7 +19,7 @@ function drawUserLogin() {
 
 function drawRegister() {
   console.log("logged in")
-  document.getElementById('auth').innerHTML = `
+  document.getElementById('main-content').innerHTML = `
     <form onsubmit = "app.controllers.authController.register(event)">
     <input type="text" name="username" placeholder="Username" required>
     <input type="email" name="email" placeholder="email" required>
@@ -42,8 +42,8 @@ export default class AuthController {
   constructor(auth) {
     console.log("auth-controller")
     _authService = auth
-    _authService.authenticate(drawLogout, drawUserLogin)
   }
+
 
   login(event) {
     event.preventDefault();
@@ -74,7 +74,7 @@ export default class AuthController {
   }
 
   showLogin() {
-    drawUserLogin()
+    _authService.authenticate(drawLogout, drawUserLogin)
   }
 
 

@@ -88,8 +88,12 @@ export default class DogController {
   constructor(auth) {
     _auth = auth
     console.log("dog controller")
+    this.getTopDog()
   }
 
+  getTopDog() {
+    _ds.getTopDog(drawHomePage)
+  }
 
   //post a new dog
   createNewDog(event) {
@@ -159,9 +163,6 @@ export default class DogController {
 
 
   // get top dog (the most points over all)
-  getTopDog() {
-    return _ds.getTopDog
-  }
 
   getUserContent(uid) {
     let template = ''
