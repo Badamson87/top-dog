@@ -2,23 +2,26 @@ import DogService from "./dog-service.js"
 
 let _ds = new DogService()
 let _auth = {}
+let user = _auth._user
 
 //draw User Profile
 function drawUserProfile(user, fetchfunction) {
-  user = _auth._user
+  if (!user) {
+    console.log('please login to continue')
+  }
   document.getElementById('main-content').innerHTML = `
   <div class="container">
-    <div class="row">
-      <img class="col-4" src="//placehold.it/200x200">
-      <p class="col-8">${user.bio}</p>
-    </div>
-    <div class="row">
-      <div class="col-12" id="user-dogs">
-      </div>
-      <div class="col-12" id="user-reviews"
-      
-      </div> 
-    </div>
+  <div class="row">
+  <img class="col-4" src="//placehold.it/200x200">
+  <p class="col-8">${user.bio}</p>
+  </div>
+  <div class="row">
+  <div class="col-12" id="user-dogs">
+  </div>
+  <div class="col-12" id="user-reviews"
+  
+  </div> 
+  </div>
   </div>
   `
   fetchfunction(user._id)
@@ -38,47 +41,47 @@ function drawDogs(catagory) {
 //draw one dog
 function drawDogProfile(dogData) {
   document.getElementById('main-content').innerHTML = `
-<div class="container>
+  <div class="container>
   <div class="row">
-    <img href="${dogData.image}>
+  <img href="${dogData.image}>
   <div class="row">
-    <h3 class="col-12>Name:<span>${dogData.name}<h3>
-    <h3 class="col-12>Breed:<span>${dogData.breed}<h3>
-    <h3 class="col-12>Bio:<span>${dogData.bio}<h3>
-    <h3 class="col-12>Owner:<span>${dogData.uid}<h3>
+  <h3 class="col-12>Name:<span>${dogData.name}<h3>
+  <h3 class="col-12>Breed:<span>${dogData.breed}<h3>
+  <h3 class="col-12>Bio:<span>${dogData.bio}<h3>
+  <h3 class="col-12>Owner:<span>${dogData.uid}<h3>
   </div>
   <div class="row">
-    <div class="col-12" id="reviews">
-      <h3>Reviews</h3>
-    </div>
-</div>
+  <div class="col-12" id="reviews">
+  <h3>Reviews</h3>
+  </div>
+  </div>
   `
 }
 
 //drawing the Home Page
 function drawHomePage(topDog) {
   document.getElementById('main-content').innerHTML = `
-   <div class='container'>
-    <div class=" row">
-      <div class="col-12">
-        <img src="${topDog.description.img}">
-    < div >
-    <h2 class="col-12">${topDog.description.name}</h2>
-        </div >
-      </div >
-    </div >
-    <div class="row">
-      <div class="col-12">
-        <buttton onclick="app.controllers.dogController.drawDogs(goodBoys)" class="col-8">Good Boys</buttton>
-        <img class="col-4" src="//placehold.it/200x200">
-      </div>
+  <div class='container'>
+  <div class=" row">
+  <div class="col-12">
+  <img src="${topDog.description.img}">
+  < div >
+  <h2 class="col-12">${topDog.description.name}</h2>
+  </div >
+  </div >
+  </div >
+  <div class="row">
+  <div class="col-12">
+  <buttton onclick="app.controllers.dogController.drawDogs(goodBoys)" class="col-8">Good Boys</buttton>
+  <img class="col-4" src="//placehold.it/200x200">
+  </div>
         <div class="col-12">
-          <buttton onclick="app.controllers.dogController.drawDogs(dogShame)" class="col-8">Shame Dog</buttton>
-          <img class="col-4" src="//placehold.it/200x200">
-      </div>
+        <buttton onclick="app.controllers.dogController.drawDogs(dogShame)" class="col-8">Shame Dog</buttton>
+        <img class="col-4" src="//placehold.it/200x200">
         </div>
-      </div>
-      `
+        </div>
+        </div>
+        `
 }
 
 export default class DogController {
@@ -90,6 +93,9 @@ export default class DogController {
 
   //post a new dog
   createNewDog(event) {
+    if (!user) {
+      console.log("Please Login to Continue")
+    }
     event.preventDefault();
     let newDog = {
       description: {
@@ -104,18 +110,52 @@ export default class DogController {
   }
 
   // update a dog -post
-  // img
-  //bio
-  //age
+  updateDog(event, dog) {
+    if (!user) {
+      console.log("Please Login to Continue")
+    }
+    if (user._id != dog._uid) {
+      console.log("you can only update dogs that are yours")
+    }
+    event.preventDefault();
+    let newData = {
+      description: {
+        breed: event.target.breed.value,
+        age: event.target.age.value,
+        name: event.target.name.value,
+        bio: event.target.bio.value,
+        img: event.target.image.value
+      }
+    }
+    _ds.updateDog(newData, dogid)
+  }
+
 
 
   // delete a dog
-  deleteDog(dogid) {
-    _ds.deleteDog(dogid, drawUserProfile)
+  deleteDog(dog) {
+    if (!user) {
+      console.log("Please Login to Continue")
+    }
+    if (user._id != dog._uid) {
+      console.log("you can only delete dogs that are yours")
+    }
+    _ds.deleteDog(dog.id, drawUserProfile)
   }
 
   //upvote a dog
-
+  upvotedog(dogid) {
+    if (!user) {
+      console.log("Please Login to Continue")
+    }
+    _ds.upvotedog(dogid)
+  }
+  downvoteDog(dogid) {
+    if (!user) {
+      console.log("Please Login to Continue")
+    }
+    _ds.downvoteDog(dogid)
+  }
 
 
   // get top dog (the most points over all)
