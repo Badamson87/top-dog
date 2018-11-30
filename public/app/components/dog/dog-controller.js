@@ -27,11 +27,11 @@ function drawUserProfile(user, fetchfunction) {
   fetchfunction(user._id)
 }
 //draw all dogs
-function drawDogs(category) {
+function drawDogs(dogs) {
   let template = ''
-  _ds.getdogs().forEach(dog => {
+  dogs.forEach(dog => {
     template += `
-    <div class="card" style="width: 18rem; background-image:url(${dog.description.image});">
+    <div class="card" style="width: 18rem;">
     <h4 class="card-title">${dog.description.name}</h4>
     </div>
     `
@@ -59,14 +59,17 @@ function drawDogProfile(dogData) {
 }
 
 //drawing the Home Page
-function drawHomePage(topDog) {
+function drawHomePage(highestDog) {
   document.getElementById('main-content').innerHTML = `
   <div class='container'>
     <div class=" row">
+            <h2 class="col-12">${highestDog.description.name}</h2>
+          </div >
+       </div >
     </div >
     <div class="row">
      <div class="col-12">
-        <buttton onclick="app.controllers.dogController.drawDogs()" class="col-8">Good Boys</buttton>
+        <buttton onclick="app.controllers.dogController.drawDogs(goodbois)" class="col-8">Good Boys</buttton>
         <img class="col-4" src="//placehold.it/200x200">
       </div>
       <div class="col-12">
@@ -82,13 +85,12 @@ export default class DogController {
   constructor(auth) {
     _auth = auth
     console.log("dog controller")
-    debugger
     this.getTopDog()
+    _ds.getdogs(drawDogs)
   }
 
   getTopDog() {
     _ds.getTopDog(drawHomePage)
-    drawDogs()
   }
 
   //post a new dog
