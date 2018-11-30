@@ -27,9 +27,9 @@ function drawUserProfile(user, fetchfunction) {
   fetchfunction(user._id)
 }
 //draw all dogs
-function drawDogs(catagory) {
+function drawDogs(category) {
   let template = ''
-  _ds.getdogs(catagory).foreach(dog => {
+  _ds.getdogs().forEach(dog => {
     template += `
     <div class="card" style="width: 18rem; background-image:url(${dog.description.image});">
     <h4 class="card-title">${dog.description.name}</h4>
@@ -62,25 +62,19 @@ function drawDogProfile(dogData) {
 function drawHomePage(topDog) {
   document.getElementById('main-content').innerHTML = `
   <div class='container'>
-  <div class=" row">
-  <div class="col-12">
-  <img src="${topDog.description.img}">
-  < div >
-  <h2 class="col-12">${topDog.description.name}</h2>
-  </div >
-  </div >
-  </div >
-  <div class="row">
-  <div class="col-12">
-  <buttton onclick="app.controllers.dogController.drawDogs(goodBoys)" class="col-8">Good Boys</buttton>
-  <img class="col-4" src="//placehold.it/200x200">
-  </div>
-        <div class="col-12">
+    <div class=" row">
+    </div >
+    <div class="row">
+     <div class="col-12">
+        <buttton onclick="app.controllers.dogController.drawDogs()" class="col-8">Good Boys</buttton>
+        <img class="col-4" src="//placehold.it/200x200">
+      </div>
+      <div class="col-12">
         <buttton onclick="app.controllers.dogController.drawDogs(dogShame)" class="col-8">Shame Dog</buttton>
         <img class="col-4" src="//placehold.it/200x200">
-        </div>
-        </div>
-        </div>
+      </div>
+      </div>
+    </div>
         `
 }
 
@@ -88,11 +82,13 @@ export default class DogController {
   constructor(auth) {
     _auth = auth
     console.log("dog controller")
+    debugger
     this.getTopDog()
   }
 
   getTopDog() {
     _ds.getTopDog(drawHomePage)
+    drawDogs()
   }
 
   //post a new dog
@@ -112,6 +108,7 @@ export default class DogController {
     }
     _ds.createNewDog(newDog, drawDogProfile)
   }
+
 
   // update a dog -post
   updateDog(event, dog) {
