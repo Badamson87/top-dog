@@ -42,6 +42,13 @@ router.delete('/:id', (req, res, next) => {
     .catch(next)
 })
 
+// get top dog
+// router.get('/', (req, res, next) => {
+//   Dogs.find({})  
+//   .then(dogs => res.send(dogs))
+//   .catch(next)
+// })
+
 //update/modify an existing dog
 //the response should be just the description
 router.put('/:id', (req, res, next) => {
