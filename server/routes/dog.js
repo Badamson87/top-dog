@@ -43,9 +43,10 @@ router.delete('/:id', (req, res, next) => {
 })
 
 //update/modify an existing dog
+//the response should be just the description
 router.put('/:id', (req, res, next) => {
   Dogs.findByIdAndUpdate(req.params.id, req.body, { new: true })
-    .then(dog => res.send(dog))
+    .then(dog => res.send(dog.description))
     .catch(next)
 })
 
