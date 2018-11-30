@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3000 //FOR DEPLOYMENT
 
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }))
-server.use(express.static(__dirname + '/public'))
+server.use(express.static(__dirname + '/publi'))
 
 let auth = require('./server/auth/routes')
 server.use(auth.session)
@@ -28,7 +28,11 @@ server.use("*", (req, res, next) => {
 })
 //^^ above always the same
 
+let dogRoutes = require('./server/routes/dog')
+let reviewRoutes = require('./server/routes/review')
 
+server.use('/dogs', dogRoutes)
+server.use('/reviews', reviewRoutes)
 
 
 
