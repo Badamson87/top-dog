@@ -5,9 +5,11 @@ require('./server/db/mlab-config')
 let server = express()
 const PORT = process.env.PORT || 3000 //FOR DEPLOYMENT
 
+server.use(express.static(__dirname + '/public'))
+
+
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }))
-server.use(express.static(__dirname + '/publi'))
 
 let auth = require('./server/auth/routes')
 server.use(auth.session)
