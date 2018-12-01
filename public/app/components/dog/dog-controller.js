@@ -11,17 +11,16 @@ function drawUserProfile(user, fetchfunction) {
   }
   document.getElementById('main-content').innerHTML = `
   <div class="container">
-  <div class="row">
-  <img class="col-4" src="//placehold.it/200x200">
-  <p class="col-8">${user.bio}</p>
-  </div>
-  <div class="row">
-  <div class="col-12" id="user-dogs">
-  </div>
-  <div class="col-12" id="user-reviews"
-  
-  </div> 
-  </div>
+    <div class="row">
+      <img class="col-4" src="//placehold.it/200x200">
+        <p class="col-8">${user.bio}</p>
+          </div>
+            <div class="row">
+          <div class="col-12" id="user-dogs">
+        </div>
+      <div class="col-12" id="user-reviews"
+      </div> 
+    </div>
   </div>
   `
   fetchfunction(user._id)
@@ -31,8 +30,19 @@ function drawDogs(dogs) {
   let template = ''
   dogs.forEach(dog => {
     template += `
-    <div class="card" style="width: 18rem;">
-    <h4 class="card-title">${dog.description.name}</h4>
+    <div class="row"
+      <div class="col-sm-4 my-1 card">
+        <div class="">
+          <img class="card-img-top" src="${dog.description.img}">
+            <div class="card-body">
+              <h4 class="card-title">${dog.description.name}</h4>
+                <div class="card-text">
+                  <p>Breed: ${dog.description.breed}</p>
+                    <p>Bio: ${dog.description.bio}</p>
+                <div>
+            </div>
+        </div>
+      </div>
     </div>
     `
   })

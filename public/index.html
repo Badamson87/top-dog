@@ -15,12 +15,33 @@
 
 <body>
   <header class="container-fluid">
-    <div id="login-logout"></div>
-    <div class="row">
-      <button onclick="app.controllers.dogController.drawNewDogForm()">add new dog</button>
-      <h1 class="col-6">Top Dog</h1>
-      <button class="col-3" onclick="app.controllers.authController.showLogin()">Login/Register</button>
+    <!-- <nav class="navbar navbar-light bg-light">
+      <span class="navbar-brand mb-0 h1">TD</span>
+    </nav> -->
+    <div class="row navBg">
+      <div class="col-1 d-flex justify-content-left mt-2">
+        <img src="./assets/topdogmedal.png" width="60" height="60" alt="">
+      </div>
+      <div class="col-8 text-center mt-3">
+        <h1>TOP DOG</h1>
+      </div>
+      <div class="col-1 mt-2 d-flex justify-content-right mr-2 pb-2">
+              <button onclick="app.controllers.dogController.drawNewDogForm()" class="btn btn-primary">add new dog</button>
+      </div>
+      <div class="col-1 mt-2 d-flex justify-content-right mr-2 pb-2">
+              <button class="btn btn-primary" onclick="app.controllers.authController.showLogin()">Login/Register</button>
+      </div>
     </div>
+
+    <div class="row topdogrow">
+
+    </div>
+
+    <div id="login-logout"></div>
+    <!-- <div class="row">
+      <button onclick="app.controllers.dogController.drawNewDogForm()">add new dog</button>
+      <button class="col-3" onclick="app.controllers.authController.showLogin()">Login/Register</button>
+    </div> -->
   </header>
   <div id="main-content" class="col-12"></div>
 
