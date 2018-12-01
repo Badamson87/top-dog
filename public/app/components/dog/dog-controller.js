@@ -105,10 +105,10 @@ export default class DogController {
 
   // update a dog -post
   updateDog(event, dog) {
-    if (!user._id) {
+    if (!_auth.user._id) {
       console.log("Please Login to Continue")
     }
-    if (user._id != dog._uid) {
+    if (_auth.user._id != dog._uid) {
       console.log("you can only update dogs that are yours")
     }
     event.preventDefault();
@@ -129,25 +129,26 @@ export default class DogController {
 
   // delete a dog
   deleteDog(dogId) {
-    if (!user) {
+    if (!_auth.user._id) {
       console.log("Please Login to Continue")
     }
-    if (user._id != dog._uid) {
-      console.log("you can only delete dogs that are yours")
-    }
-    _ds.deleteDog(dog.id, drawDogs)
+    //Can't do this here because don't have the complete dog object but just a dog id
+    //let service check this
+    
+    _ds.deleteDog(dogId, _auth.user._id, drawDogs)
   }
 
   //upvote a dog
   upvotedog(dogid) {
-    if (!user) {
+    if (!_auth.user._id) {
       console.log("Please Login to Continue")
     }
     _ds.upvoteDog(dogid)
   }
   downvoteDog(dogid) {
-    if (!user) {
+    if (!_auth.user._id) {
       console.log("Please Login to Continue")
     }
     _ds.downvoteDog(dogid)
   }
+}

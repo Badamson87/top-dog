@@ -1,6 +1,6 @@
 
 let _authService = {}
-let _dogService =
+let _dogService ={}
 
   //login
   function drawUserLogin() {
