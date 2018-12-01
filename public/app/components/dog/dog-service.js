@@ -24,7 +24,9 @@ export default class dogService {
     return _dogs
   }
   //get one dog
-
+  getDogbyId(dogId) {
+    return _dogs.find(dog => dog._id == dogId)
+  }
 
 
 
@@ -65,7 +67,7 @@ export default class dogService {
     _dogApi.post('/', newDog)
       .then(res => {
         _dogs.push(res.data)
-        
+
         draw(res.data)
       })
       .catch(err => {

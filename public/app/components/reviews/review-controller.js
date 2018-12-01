@@ -7,23 +7,10 @@ let _auth = {}
 let dogObject = {}
 
 
-function drawReviews(dogdata, dogid) {
-  document.getElementById('main-content').innerHTML = `
- <div class="container>
-    <div class="row">
-      <img onclick="app.controllers.reviewController.getReview(event)" href="${dogdata.image}>
-    </div>
-  <div class="row">
-    <h3 class="col-12">Name:<span>${dogdata.description.name}<h3>
-    <h3 class="col-12">Breed:<span>${dogdata.description.breed}<h3>
-    <h3 class="col-12">Bio:<span>${dogdata.description.bio}<h3>
-    <h3 class="col-12">Owner:<span>${_auth.user.userName}<h3>
-  </div>
-  <div id="reviews"> </div>
-</div>
-  `
+function drawReviews(reviews) {
+  console.log(reviews)
   let template = ''
-  _rs.getDogReviews(dogid).forEach(review => {
+  reviews.forEach(review => {
     template += `
       <div class="container">
         <div class="card" style="width: 18rem;">
@@ -63,9 +50,6 @@ export default class ReviewController {
   editReview() {
 
   }
-  drawReviews(dogdata, dogid) {
-    drawReviews(dogdata, dogid)
-  }
 
   deleteReview(reviewId, creatorId) {
     if (!_auth.user._id) {
@@ -80,8 +64,8 @@ export default class ReviewController {
 
   // //get reviews by id
 
-  getReviews(dogObject, drawReviews) {
-    _rs.getReviews(dogObject, drawReviews)
+  getReviews(dogId) {
+    _rs.getReviews(dogId, drawReviews)
   }
 
   // getReviews(event) {

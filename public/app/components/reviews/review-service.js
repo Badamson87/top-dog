@@ -19,8 +19,8 @@ export default class reviewsService {
       })
   }
   //get all reviews
-  getReviews(dogs, drawReviews) {
-    _reviewApi.get('/')
+  getReviews(dogId, drawReviews) {
+    _reviewApi.get(dogId)
       .then(res => {
         _reviews = res.data
         drawReviews(_reviews)

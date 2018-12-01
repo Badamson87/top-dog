@@ -30,6 +30,7 @@ router.get('/:id/reviews', (req, res, next) => {
 
 //post/create a new dog
 router.post('/', (req, res, next) => {
+  req.body.creatorId = req.session.uid
   Dogs.create(req.body)
     .then(dog => res.send(dog))
     .catch(next)

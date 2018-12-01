@@ -12,14 +12,14 @@ function drawDogs(dogs) {
   let template = ''
 
   dogs.forEach(dog => {
-    debugger
+    console.log(dog)
     template += `
     <div class="row"
       <div class="col-sm-4 my-1 card">
         <div class="cards">
           <img class="card-img-top" src="${dog.description.img}">
             <div class="card-body">
-              <h4 class="card-title" onclick="app.controllers.reviewController.drawReviews(${dog}, ${dog._id})">${dog.description.name}</h4>
+              <h4 class="card-title" onclick="app.controllers.dogController.startDrawDogProfile('${dog._id}', app.controllers.reviewController.getReviews)">${dog.description.name}</h4>
                 <div class="card-text">
                   <p>Breed: ${dog.description.breed}</p>
                     <p>Bio: ${dog.description.bio}</p>
@@ -36,23 +36,26 @@ function drawDogs(dogs) {
   document.getElementById('main-content').innerHTML = template
 }
 //draw one dog
-function drawDogProfile(dogData) {
+function drawDogProfile(dogId, cb) {
+
+  let dog = _ds.getDogbyId(dogId)
   document.getElementById('main-content').innerHTML = `
   <div class="container>
   <div class="row">
-  <img onclick="app.controllers.reviewController.getReview(event)" href="${dogData.image}>
+  <img  href="${dog.img}>
   <div class="row">
-  <h3 class="col-12">Name:<span>${dogData.description.name}<h3>
-  <h3 class="col-12">Breed:<span>${dogData.description.breed}<h3>
-  <h3 class="col-12">Bio:<span>${dogData.description.bio}<h3>
+  <h3 class="col-12">Name:<span>${dog.description.name}<h3>
+  <h3 class="col-12">Breed:<span>${dog.description.breed}<h3>
+  <h3 class="col-12">Bio:<span>${dog.description.bio}<h3>
   <h3 class="col-12">Owner:<span>${_auth.user.userName}<h3>
   </div>
   <div class="row">
-  <div class="col-12" id="reviews">
-  <h3>Reviews</h3>
+  <div class="col-12" >
+  <h3 id="reviews">Reviews</h3>
   </div>
   </div>
   `
+  cb(dogId)
 }
 
 
@@ -103,7 +106,7 @@ export default class DogController {
         name: event.target.name.value,
         bio: event.target.bio.value
       },
-      
+
 
     }
     _ds.createNewDog(newDog, drawDogProfile)
@@ -131,7 +134,9 @@ export default class DogController {
     }
     _ds.updateDog(newData, dog._id)
   }
-
+  startDrawDogProfile(dogId, cb) {
+    drawDogProfile(dogId, cb)
+  }
 
 
   // delete a dog
