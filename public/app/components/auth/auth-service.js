@@ -31,7 +31,8 @@ export default class AuthService {
   }
 
   register(creds, draw) {
-    _auth.post('register', creds)
+    debugger
+    _auth.post('/register', creds)
       .then(res => {
         _user = res.data
         draw()

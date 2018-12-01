@@ -1,26 +1,28 @@
 let _dogApi = axios.create({
-  baseURL: "dogs",
+  baseURL: "/dogs",
 
 })
 
 let _dogs = []
-let _topDog = {}
 export default class dogService {
   constructor() {
     console.log("dog service")
+
   }
   //get all dogs
-  getdogs() {
-    _dogApi.get({})
+  getdogs(draw) {
+    _dogApi.get('/')
       .then(res => {
         _dogs = res.data
-        return _dogs
+        draw(_dogs)
       })
       .catch(err => {
         console.error(err)
       })
   }
-
+  get dogs() {
+    return _dogs
+  }
   //get one dog
 
 
@@ -28,17 +30,35 @@ export default class dogService {
 
   //get top dog
   getTopDog(draw) {
-    _dogApi.get('topdog')
+    _dogApi.get('/')
       .then(res => {
-        _topDog = res.data
+        this.doMath(res.data, draw)
       })
       .catch(err => {
         console.error(err)
       })
-    draw(_topDog)
   }
 
+  doMath(data, draw) {
+    let highestDog = { votes: -1 }
+    for (let i = 0; i < data.length; i++) {
+      const dog = data[i];
+      let dogvalue = 0
+      for (let voter in dog.votes) {
+        dogvalue += dog.votes[voter]
+      }
+      // for (let i = 0; i < Object.keys( dog.votes).length; i++) {
+      //   const vote = dog.votes[i];
+      //   dogvalue += vote.value
+      // }
+      if (dogvalue > highestDog.votes) {
+        highestDog = dog
+      }
 
+    }
+    draw(highestDog)
+
+  }
 
   //post a new dog
 
