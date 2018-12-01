@@ -8,6 +8,13 @@ router.get("/user/:creatorId", (req, res, next) => {
     .catch(next)
 })
 
+//need get all by dogId
+router.get("/:dogid", (req, res, next) => {
+  Reviews.find({ dogId: req.params.dogid })
+    .then(reviews => res.send(reviews))
+    .catch(next)
+})
+
 router.post('/', (req, res, next) => {
   Reviews.create(req.body)
     .then(review => res.send(review))

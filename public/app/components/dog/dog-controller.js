@@ -8,16 +8,18 @@ let dogObject = {}
 
 //draw all dogs
 function drawDogs(dogs) {
+
   let template = ''
 
   dogs.forEach(dog => {
+    debugger
     template += `
     <div class="row"
       <div class="col-sm-4 my-1 card">
         <div class="">
           <img class="card-img-top" src="${dog.description.img}">
             <div class="card-body">
-              <h4 class="card-title">${dog.description.name}</h4>
+              <h4 class="card-title" onclick="app.controllers.reviewController.drawReviews(${dog}, ${dog._id})">${dog.description.name}</h4>
                 <div class="card-text">
                   <p>Breed: ${dog.description.breed}</p>
                     <p>Bio: ${dog.description.bio}</p>
