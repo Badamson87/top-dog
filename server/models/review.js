@@ -7,7 +7,7 @@ let schema = new Schema({
   description: { type: String },
   dogId: { type: ObjectId, ref: "Dog", required: true },
   //mongoose uses ref to know which table to search
-  creatorId: { type: ObjectId, ref: "Dog", required: true } //look at this if broken, not sure about ObjectId
+  creatorId: { type: ObjectId, ref: "User", required: true } //look at this if broken, not sure about ObjectId
 })
 
 let model = mongoose.model(name, schema)
