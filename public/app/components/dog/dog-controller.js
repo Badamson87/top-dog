@@ -28,6 +28,7 @@ function drawUserProfile(user, fetchfunction) {
 //draw all dogs
 function drawDogs(dogs) {
   let template = ''
+  
   dogs.forEach(dog => {
     template += `
     <div class="row"
@@ -41,7 +42,7 @@ function drawDogs(dogs) {
                     <p>Bio: ${dog.description.bio}</p>
                       <div>
                   <div>
-                <i class="fa fa-fw fa-trash action muted" onclick="app.controllers.dogController.destroyDog('${dog._id}')"></i>
+                <i class="fa fa-fw fa-trash action muted" onclick="app.controllers.dogController.deleteDog('${dog._id}')"></i>
               </div>
             </div>
         </div>
@@ -167,7 +168,7 @@ export default class DogController {
 
 
   // delete a dog
-  deleteDog(dog) {
+  deleteDog(dogId) {
     if (!user) {
       console.log("Please Login to Continue")
     }

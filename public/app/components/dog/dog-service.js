@@ -78,7 +78,17 @@ export default class dogService {
 
 
   // delete a dog
-
+  
+  destroyDog(_id, draw) {
+    debugger
+    _dogApi.delete(_id)
+      .then(res => {
+      this.getdogs(draw)
+      }) 
+      .catch(err => {
+        console.error(err)
+      })
+ }
 
 
   //upvote
