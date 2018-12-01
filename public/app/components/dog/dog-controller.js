@@ -16,7 +16,7 @@ function drawDogs(dogs) {
     template += `
     <div class="row"
       <div class="col-sm-4 my-1 card">
-        <div class="">
+        <div class="cards">
           <img class="card-img-top" src="${dog.description.img}">
             <div class="card-body">
               <h4 class="card-title" onclick="app.controllers.reviewController.drawReviews(${dog}, ${dog._id})">${dog.description.name}</h4>
@@ -64,7 +64,7 @@ function _drawNewDogForm() {
   <input type="number" name="age" placeholder="Age">
   <input type="text" name="breed" placeholder="Breed">
   <input type="text" name="name" placeholder="Name">
-  <input type="text" name="category" placeholder="Good Boy or Dog Shame?">
+  <input type="url" name="img" placeholder="Pic">
   <button type="submit">Submit new dog</button>
   </form>
   </div>
@@ -91,17 +91,19 @@ export default class DogController {
   //post a new dog
   createNewDog(event) {
     event.preventDefault();
+    let form = event.target
     if (!_auth.user._id) {
       return console.log("Please Login to Continue")
     }
     let newDog = {
       description: {
+        img: event.target.img.value,
         breed: event.target.breed.value,
         age: event.target.age.value,
         name: event.target.name.value,
         bio: event.target.bio.value
       },
-      category: event.target.category.value
+      
 
     }
     _ds.createNewDog(newDog, drawDogProfile)

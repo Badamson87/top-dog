@@ -65,7 +65,7 @@ export default class dogService {
     _dogApi.post('/', newDog)
       .then(res => {
         _dogs.push(res.data)
-        debugger
+        
         draw(res.data)
       })
       .catch(err => {
@@ -82,7 +82,7 @@ export default class dogService {
 
   // delete a dog
 
-  deleteDog(dogId, userId, drawDogs) {
+  deleteDog(dogId, userId, draw) {
     //find the dog from _dogs whos id is dogId
     let dog = _dogs.find(d => d._id == dogId)
     //then check if that dogs userId/creatorId is the same as the userId parameter
@@ -93,7 +93,7 @@ export default class dogService {
     //if true then below
     _dogApi.delete(dogId)
       .then(res => {
-        this.getdogs(drawDogs)
+        this.getdogs(draw)
       })
       .catch(err => {
         console.error(err)
