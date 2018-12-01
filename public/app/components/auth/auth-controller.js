@@ -1,30 +1,32 @@
+import dogService from "../dog/dog-service.js";
 
 let _authService = {}
-let _dogService ={}
+let _dogService = new dogService()
+let dogs = _dogService.dogs
 
-  //login
-  function drawUserLogin() {
-    console.log('not logged in')
-    document.getElementById('main-content').innerHTML = `
+//login
+function drawUserLogin() {
+  console.log('not logged in')
+  document.getElementById('auth-content').innerHTML = `
   <form onsubmit="app.controllers.authController.login(event)">
     <input type="email" name="email" placeholder="email" required>
     <input type="password" name="password" placeholder="password" required>
-    <button id="loginButton" type="submit">Login</button>
+    <button onclick="app.controllers.dogController.drawDogs(${dogs})" type="submit">Login</button>
     </form>
     <p onclick="app.controllers.authController.showRegister()">Click to Register</p>
   `
-  }
+}
 
 //register
 
 function drawRegister() {
   console.log("not logged in")
-  document.getElementById('main-content').innerHTML = `
+  document.getElementById('auth-content').innerHTML = `
     <form onsubmit = "app.controllers.authController.register(event)">
     <input type="text" name="userName" placeholder="Username" required>
     <input type="email" name="email" placeholder="email" required>
     <input type="password" name="password" placeholder="password" required>
-          <button type="submit" id="registerButton">Register</button>
+          <button type="submit" onclick="app.controllers.dogController.drawDogs(${dogs})">Register</button>
     </form>
         <p onclick="app.controllers.authController.showLogin()">Click to Login</p>
   `
@@ -43,7 +45,9 @@ export default class AuthController {
     _authService = auth
     _authService.authenticate(drawLogout, drawUserLogin)
   }
-
+  getdogs(draw) {
+    _dogService.getdogs(draw)
+  }
 
   login(event) {
     event.preventDefault();
