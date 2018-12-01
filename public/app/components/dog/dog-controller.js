@@ -2,29 +2,9 @@ import DogService from "./dog-service.js"
 
 let _ds = new DogService()
 let _auth = {}
-let user = _auth._user
+let user = {}
 
-//draw User Profile
-function drawUserProfile(user, fetchfunction) {
-  if (!user) {
-    console.log('please login to continue')
-  }
-  document.getElementById('main-content').innerHTML = `
-  <div class="container">
-    <div class="row">
-      <img class="col-4" src="//placehold.it/200x200">
-        <p class="col-8">${user.bio}</p>
-          </div>
-            <div class="row">
-          <div class="col-12" id="user-dogs">
-        </div>
-      <div class="col-12" id="user-reviews"
-      </div> 
-    </div>
-  </div>
-  `
-  fetchfunction(user._id)
-}
+
 //draw all dogs
 function drawDogs(dogs) {
   let template = ''
@@ -59,10 +39,10 @@ function drawDogProfile(dogData) {
   <div class="row">
   <img href="${dogData.image}>
   <div class="row">
-  <h3 class="col-12>Name:<span>${dogData.name}<h3>
-  <h3 class="col-12>Breed:<span>${dogData.breed}<h3>
-  <h3 class="col-12>Bio:<span>${dogData.bio}<h3>
-  <h3 class="col-12>Owner:<span>${dogData.uid}<h3>
+  <h3 class="col-12">Name:<span>${dogData.description.name}<h3>
+  <h3 class="col-12">Breed:<span>${dogData.description.breed}<h3>
+  <h3 class="col-12">Bio:<span>${dogData.description.bio}<h3>
+  <h3 class="col-12">Owner:<span>${_auth.user.userName}<h3>
   </div>
   <div class="row">
   <div class="col-12" id="reviews">
@@ -72,28 +52,7 @@ function drawDogProfile(dogData) {
   `
 }
 
-//drawing the Home Page
-function drawHomePage(highestDog) {
-  document.getElementById('main-content').innerHTML = `
-  <div class='container'>
-    <div class=" row">
-            <h2 class="col-12">${highestDog.description.name}</h2>
-          </div >
-       </div >
-    </div >
-    <div class="row">
-     <div class="col-12">
-        <buttton onclick="app.controllers.dogController.drawDogs(goodbois)" class="col-8">Good Boys</buttton>
-        <img class="col-4" src="//placehold.it/200x200">
-      </div>
-      <div class="col-12">
-        <buttton onclick="app.controllers.dogController.drawDogs(dogShame)" class="col-8">Shame Dog</buttton>
-        <img class="col-4" src="//placehold.it/200x200">
-      </div>
-      </div>
-    </div>
-        `
-}
+
 function _drawNewDogForm() {
   document.getElementById('main-content').innerHTML = `
   <div class="form-group">
@@ -112,33 +71,33 @@ function _drawNewDogForm() {
 export default class DogController {
   constructor(auth) {
     _auth = auth
+
     console.log("dog controller")
-    this.getTopDog()
+
     _ds.getdogs(drawDogs)
   }
-
-  getTopDog() {
-    _ds.getTopDog(drawHomePage)
+  drawDogs(dogs) {
+    drawDogs(dogs)
   }
+
   drawNewDogForm() {
     _drawNewDogForm()
   }
   //post a new dog
   createNewDog(event) {
-    debugger
-    if (!user) {
+    event.preventDefault();
+    if (!_auth.user._id) {
       return console.log("Please Login to Continue")
     }
-    event.preventDefault();
     let newDog = {
       description: {
         breed: event.target.breed.value,
         age: event.target.age.value,
         name: event.target.name.value,
-        bio: event.target.bio.value,
+        bio: event.target.bio.value
       },
-      votes: {},
-      creatorId: _auth.session.uid
+      category: event.target.category.value
+
     }
     _ds.createNewDog(newDog, drawDogProfile)
   }
@@ -146,7 +105,7 @@ export default class DogController {
 
   // update a dog -post
   updateDog(event, dog) {
-    if (!user) {
+    if (!user._id) {
       console.log("Please Login to Continue")
     }
     if (user._id != dog._uid) {
@@ -161,8 +120,9 @@ export default class DogController {
         bio: event.target.bio.value,
         img: event.target.image.value
       }
+
     }
-    _ds.updateDog(newData, dogid)
+    _ds.updateDog(newData, dog._id)
   }
 
 
@@ -175,7 +135,7 @@ export default class DogController {
     if (user._id != dog._uid) {
       console.log("you can only delete dogs that are yours")
     }
-    _ds.deleteDog(dog.id, drawUserProfile)
+    _ds.deleteDog(dog.id, drawDogs)
   }
 
   //upvote a dog
@@ -183,7 +143,7 @@ export default class DogController {
     if (!user) {
       console.log("Please Login to Continue")
     }
-    _ds.upvotedog(dogid)
+    _ds.upvoteDog(dogid)
   }
   downvoteDog(dogid) {
     if (!user) {
@@ -191,18 +151,3 @@ export default class DogController {
     }
     _ds.downvoteDog(dogid)
   }
-
-
-  // get top dog (the most points over all)
-
-  getUserContent(uid) {
-    let template = ''
-    _ds.getdogs(uid).foreach(dog => {
-      template += `
-      <h4 onclick="app.controllers.dogController.drawDogProfile(dog.data)">${dog.data.description.name}<h4>
-      `
-    })
-    document.getElementById('user-dogs').innerHTML = template
-  }
-
-}

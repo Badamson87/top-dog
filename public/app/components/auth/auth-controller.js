@@ -1,19 +1,19 @@
 
 let _authService = {}
+let _dogService =
 
-
-//login
-function drawUserLogin() {
-  console.log('not logged in')
-  document.getElementById('main-content').innerHTML = `
+  //login
+  function drawUserLogin() {
+    console.log('not logged in')
+    document.getElementById('main-content').innerHTML = `
   <form onsubmit="app.controllers.authController.login(event)">
     <input type="email" name="email" placeholder="email" required>
     <input type="password" name="password" placeholder="password" required>
-    <button type="submit">Login</button>
+    <button id="loginButton" type="submit">Login</button>
     </form>
     <p onclick="app.controllers.authController.showRegister()">Click to Register</p>
   `
-}
+  }
 
 //register
 
@@ -24,7 +24,7 @@ function drawRegister() {
     <input type="text" name="userName" placeholder="Username" required>
     <input type="email" name="email" placeholder="email" required>
     <input type="password" name="password" placeholder="password" required>
-          <button type="submit">Register</button>
+          <button type="submit" id="registerButton">Register</button>
     </form>
         <p onclick="app.controllers.authController.showLogin()">Click to Login</p>
   `

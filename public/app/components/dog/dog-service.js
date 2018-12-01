@@ -65,6 +65,7 @@ export default class dogService {
     _dogApi.post('/', newDog)
       .then(res => {
         _dogs.push(res.data)
+        debugger
         draw(res.data)
       })
       .catch(err => {
@@ -74,7 +75,9 @@ export default class dogService {
 
 
   //update a dog
+  updateDog(newData, dogid) {
 
+  }
 
 
   // delete a dog
@@ -92,9 +95,13 @@ export default class dogService {
 
 
   //upvote
+  upvoteDog(dogid) {
 
+  }
   //downvote
+  downvoteDog(dogid) {
 
+  }
 
   //get user content
 
