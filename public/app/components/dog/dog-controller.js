@@ -38,7 +38,7 @@ function drawDogProfile(dogData) {
   document.getElementById('main-content').innerHTML = `
   <div class="container>
   <div class="row">
-  <img href="${dogData.image}>
+  <img onclick="app.controllers.reviewController.getReview(event)" href="${dogData.image}>
   <div class="row">
   <h3 class="col-12">Name:<span>${dogData.description.name}<h3>
   <h3 class="col-12">Breed:<span>${dogData.description.breed}<h3>
