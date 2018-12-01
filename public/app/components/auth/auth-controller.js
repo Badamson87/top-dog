@@ -33,7 +33,7 @@ function drawRegister() {
 //logout
 function drawLogout() {
   console.log('logged in')
-  document.getElementById('main-content').innerHTML = `<button onclick="app.controllers.authController.logout()">Logout</button>`
+  document.getElementById('login-logout').innerHTML = `<button onclick="app.controllers.authController.logout()">Logout</button>`
 }
 
 

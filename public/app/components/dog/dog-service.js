@@ -61,7 +61,16 @@ export default class dogService {
   }
 
   //post a new dog
-
+  createNewDog(newDog, draw) {
+    _dogApi.post('/', newDog)
+      .then(res => {
+        _dogs.push(res.data)
+        draw(res.data)
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
 
 
   //update a dog

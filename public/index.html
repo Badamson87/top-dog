@@ -15,12 +15,14 @@
 
 <body>
   <header class="container-fluid">
+    <div id="login-logout"></div>
     <div class="row">
+      <button onclick="app.controllers.dogController.drawNewDogForm()">add new dog</button>
       <h1 class="col-6">Top Dog</h1>
       <button class="col-3" onclick="app.controllers.authController.showLogin()">Login/Register</button>
     </div>
   </header>
-  <div id="main-content"></div>
+  <div id="main-content" class="col-12"></div>
 
 
 

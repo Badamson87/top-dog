@@ -80,6 +80,20 @@ function drawHomePage(highestDog) {
     </div>
         `
 }
+function _drawNewDogForm() {
+  document.getElementById('main-content').innerHTML = `
+  <div class="form-group">
+  <form onsubmit="app.controllers.dogController.createNewDog(event)">
+    <input type="text" name="bio" placeholder="Bio">
+  <input type="number" name="age" placeholder="Age">
+  <input type="text" name="breed" placeholder="Breed">
+  <input type="text" name="name" placeholder="Name">
+  <input type="text" name="category" placeholder="Good Boy or Dog Shame?">
+  <button type="submit">Submit new dog</button>
+  </form>
+  </div>
+    `
+}
 
 export default class DogController {
   constructor(auth) {
@@ -92,11 +106,14 @@ export default class DogController {
   getTopDog() {
     _ds.getTopDog(drawHomePage)
   }
-
+  drawNewDogForm() {
+    _drawNewDogForm()
+  }
   //post a new dog
   createNewDog(event) {
+    debugger
     if (!user) {
-      console.log("Please Login to Continue")
+      return console.log("Please Login to Continue")
     }
     event.preventDefault();
     let newDog = {
@@ -105,8 +122,9 @@ export default class DogController {
         age: event.target.age.value,
         name: event.target.name.value,
         bio: event.target.bio.value,
-        img: event.target.image.value
-      }
+      },
+      votes: {},
+      creatorId: _auth.session.uid
     }
     _ds.createNewDog(newDog, drawDogProfile)
   }
