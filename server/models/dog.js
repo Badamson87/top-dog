@@ -9,12 +9,13 @@ let schema = new Schema({
   votes: {},
   count: { type: Number, default: 0, required: true },
   description: {
+    img: { type: String },
     breed: { type: String, required: true, default: "Mutt" },
     age: { type: Number },
     name: { type: String, required: true },
     bio: { type: String, required: true }
-  },
-  category: { type: String, required: true }
+  }
+  // category: { type: String, required: true }
 })
 
 let model = mongoose.model(name, schema)

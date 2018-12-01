@@ -75,7 +75,9 @@ export default class dogService {
 
 
   //update a dog
+  updateDog(newData, dogid) {
 
+  }
 
 
   // delete a dog
@@ -83,9 +85,13 @@ export default class dogService {
 
 
   //upvote
+  upvoteDog(dogid) {
 
+  }
   //downvote
+  downvoteDog(dogid) {
 
+  }
 
   //get user content
 

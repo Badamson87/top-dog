@@ -10,8 +10,22 @@ function drawDogs(dogs) {
   let template = ''
   dogs.forEach(dog => {
     template += `
-    <div class="card" style="width: 18rem;">
-    <h4 class="card-title">${dog.description.name}</h4>
+    <div class="row"
+      <div class="col-sm-4 my-1 card">
+        <div class="">
+          <img class="card-img-top" src="${dog.description.img}">
+            <div class="card-body">
+              <h4 class="card-title">${dog.description.name}</h4>
+                <div class="card-text">
+                  <p>Breed: ${dog.description.breed}</p>
+                    <p>Bio: ${dog.description.bio}</p>
+                      <div>
+                  <div>
+                <i class="fa fa-fw fa-trash action muted" onclick="app.controllers.dogController.destroyDog('${dog._id}')"></i>
+              </div>
+            </div>
+        </div>
+      </div>
     </div>
     `
   })
@@ -107,7 +121,7 @@ export default class DogController {
       }
 
     }
-    _ds.updateDog(newData, dogid)
+    _ds.updateDog(newData, dog._id)
   }
 
 
@@ -120,7 +134,7 @@ export default class DogController {
     if (user._id != dog._uid) {
       console.log("you can only delete dogs that are yours")
     }
-    _ds.deleteDog(dog.id, drawUserProfile)
+    _ds.deleteDog(dog.id, drawDogs)
   }
 
   //upvote a dog
@@ -128,7 +142,7 @@ export default class DogController {
     if (!user) {
       console.log("Please Login to Continue")
     }
-    _ds.upvotedog(dogid)
+    _ds.upvoteDog(dogid)
   }
   downvoteDog(dogid) {
     if (!user) {
@@ -136,18 +150,3 @@ export default class DogController {
     }
     _ds.downvoteDog(dogid)
   }
-
-
-  // get top dog (the most points over all)
-
-  getUserContent(uid) {
-    let template = ''
-    _ds.getdogs(uid).foreach(dog => {
-      template += `
-      <h4 onclick="app.controllers.dogController.drawDogProfile(dog.data)">${dog.data.description.name}<h4>
-      `
-    })
-    document.getElementById('user-dogs').innerHTML = template
-  }
-
-}
