@@ -3,10 +3,12 @@ import DogService from "./dog-service.js"
 let _ds = new DogService()
 let _auth = {}
 let user = {}
+let dogObject = {}
 
 
 //draw all dogs
 function drawDogs(dogs) {
+  debugger
   let template = ''
   dogs.forEach(dog => {
     template += `
@@ -70,6 +72,8 @@ function _drawNewDogForm() {
 export default class DogController {
   constructor(auth) {
     _auth = auth
+    dogObject = _ds.dogs
+
 
     console.log("dog controller")
 
@@ -150,3 +154,4 @@ export default class DogController {
     }
     _ds.downvoteDog(dogid)
   }
+}
