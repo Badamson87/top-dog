@@ -20,6 +20,7 @@ export default class AuthService {
   }
 
   login(creds, draw) {
+
     _auth.post('login', creds)
       .then(res => {
         _user = res.data

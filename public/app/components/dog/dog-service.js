@@ -65,6 +65,7 @@ export default class dogService {
     _dogApi.post('/', newDog)
       .then(res => {
         _dogs.push(res.data)
+        debugger
         draw(res.data)
       })
       .catch(err => {
