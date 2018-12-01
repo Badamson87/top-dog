@@ -8,3 +8,16 @@
   min-height: 300px;
   background-color: pink;
 }
+
+.action{
+  cursor: pointer;
+  transition: all .3s linear;
+}
+
+.muted{
+  opacity: .75;
+}
+
+.action.muted:hover{
+  opacity: 1;
+}

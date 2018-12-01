@@ -39,7 +39,10 @@ function drawDogs(dogs) {
                 <div class="card-text">
                   <p>Breed: ${dog.description.breed}</p>
                     <p>Bio: ${dog.description.bio}</p>
-                <div>
+                      <div>
+                  <div>
+                <i class="fa fa-fw fa-trash action muted" onclick="app.controllers.dogController.destroyDog('${dog._id}')"></i>
+              </div>
             </div>
         </div>
       </div>
