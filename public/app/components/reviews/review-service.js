@@ -9,7 +9,7 @@ export default class reviewsService {
   constructor() {
     console.log('dog service')
   }
-//get all reviews
+  //get all reviews
   getreviews(draw) {
     _reviewApi.get('/')
       .then(res => {
@@ -28,22 +28,22 @@ export default class reviewsService {
   createReview(newReview, draw) {
     _reviewApi.post('/', newReview)
       .then(res => {
-     _reviews.push(res.data)
-      draw(res.data)
-      }) 
+        _reviews.push(res.data)
+        draw(res.data)
+      })
       .catch(err => {
-      console.error(err)
-    })
+        console.error(err)
+      })
   }
 
   deleteReview(review) {
     _reviewApi.delete(review.id)
       .then(res => {
-      
+
       })
       .catch(err => {
         console.error(err)
-    })
+      })
   }
 
 

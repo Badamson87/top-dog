@@ -8,9 +8,8 @@ let dogObject = {}
 
 //draw all dogs
 function drawDogs(dogs) {
-  debugger
   let template = ''
-  
+
   dogs.forEach(dog => {
     template += `
     <div class="row"
@@ -138,7 +137,7 @@ export default class DogController {
     }
     //Can't do this here because don't have the complete dog object but just a dog id
     //let service check this
-    
+
     _ds.deleteDog(dogId, _auth.user._id, drawDogs)
   }
 

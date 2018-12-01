@@ -81,25 +81,24 @@ export default class dogService {
 
 
   // delete a dog
-  
+
   deleteDog(dogId, userId, drawDogs) {
-    debugger
     //find the dog from _dogs whos id is dogId
-    let dog = _dogs.find(dogId)
+    let dog = _dogs.find(d => d._id == dogId)
     //then check if that dogs userId/creatorId is the same as the userId parameter
     //if not return
-    if (userId != dog.userId) {
+    if (!dog || userId != dog.creatorId) {
       return console.log("you can only delete dogs that are yours")
     }
     //if true then below
-    _dogApi.delete('/:dogId')
+    _dogApi.delete(dogId)
       .then(res => {
-      this.getdogs(drawDogs)
-      }) 
+        this.getdogs(drawDogs)
+      })
       .catch(err => {
         console.error(err)
       })
- }
+  }
 
 
   //upvote

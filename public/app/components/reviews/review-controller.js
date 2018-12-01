@@ -49,20 +49,21 @@ export default class ReviewController {
 
   }
 
-  deleteReview(review) {
-    if (!user) {
-      console.log('please login to Continue')
-    }
-    if (user._id != review._id {
-      console.log('you can only delete your own reviews')
-    }
-    _rs.deleteReview(review.id, xxxxx ?   )
+  // deleteReview(review) {
+  //   if (!user) {
+  //     console.log('please login to Continue')
+  //   }
+  //   if (user._id != review._id {
+  //     console.log('you can only delete your own reviews')
+  //   }
+  //   _rs.deleteReview(review.id, xxxxx ?   )
 
-  }
+  // }
 
-  //get reviews by id
+  // //get reviews by id
 
-  getReviews(event) {
+  // getReviews(event) {
+  //   _rs.getreviews(event, getReview)
 
-  }
+  // }
 }

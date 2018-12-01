@@ -37,7 +37,7 @@ router.post('/', (req, res, next) => {
 
 //delete a dog
 router.delete('/:id', (req, res, next) => {
-  Dogs.findOneAndUpdate({ _id: req.params.id, creatorId: req.session.uid }, { description: 'No longer Available', price: 0, img: 'http://placehold.it/200x200' })
+  Dogs.findOneAndDelete({ _id: req.params.id, creatorId: req.session.uid })
     .then(dog => res.send({ message: "DELORTED", data: dog }))
     .catch(next)
 })
