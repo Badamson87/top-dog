@@ -6,7 +6,6 @@ let _dogApi = axios.create({
 let _dogs = []
 export default class dogService {
   constructor() {
-    console.log("dog service")
 
   }
   //get all dogs

@@ -12,7 +12,6 @@ function drawDogs(dogs) {
   let template = ''
 
   dogs.forEach(dog => {
-    console.log(dog)
     template += `
     <div class="row"
       <div class="col-sm-4 my-1 card">
@@ -48,6 +47,9 @@ function drawDogProfile(dogId, cb) {
   <h3 class="col-12">Breed:<span>${dog.description.breed}<h3>
   <h3 class="col-12">Bio:<span>${dog.description.bio}<h3>
   <h3 class="col-12">Owner:<span>${_auth.user.userName}<h3>
+  <h3 class="col-12">
+    <button onclick="app.controllers.reviewController.buildReview('${dogId}')">Write a review</button>
+  </h3>
   </div>
   <div class="row">
   <div class="col-12" >
@@ -79,8 +81,6 @@ export default class DogController {
     _auth = auth
     dogObject = _ds.dogs
 
-
-    console.log("dog controller")
 
     _ds.getdogs(drawDogs)
   }

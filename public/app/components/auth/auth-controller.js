@@ -34,14 +34,12 @@ function drawRegister() {
 
 //logout
 function drawLogout() {
-  console.log('logged in')
   document.getElementById('login-logout').innerHTML = `<button onclick="app.controllers.authController.logout()">Logout</button>`
 }
 
 
 export default class AuthController {
   constructor(auth) {
-    console.log("auth-controller")
     _authService = auth
     _authService.authenticate(drawLogout, drawUserLogin)
   }

@@ -12,7 +12,6 @@ let _user = {}
 
 export default class AuthService {
   constructor() {
-    console.log("Auth-Service")
   }
 
   get user() {
@@ -32,7 +31,6 @@ export default class AuthService {
   }
 
   register(creds, draw) {
-    debugger
     _auth.post('/register', creds)
       .then(res => {
         _user = res.data

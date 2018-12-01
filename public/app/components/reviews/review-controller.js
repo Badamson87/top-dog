@@ -8,7 +8,6 @@ let dogObject = {}
 
 
 function drawReviews(reviews) {
-  console.log(reviews)
   let template = ''
   reviews.forEach(review => {
     template += `
@@ -26,6 +25,15 @@ function drawReviews(reviews) {
 
 }
 
+function reviewTemplate() {
+
+}
+
+
+let reviewForm = '<h1>this is a test</h1>'
+
+
+
 
 export default class ReviewController {
   constructor(auth) {
@@ -33,6 +41,21 @@ export default class ReviewController {
     dogObject = _ds.dogs
   }
 
+  buildReview(dogId) {
+    let template = `
+    <form onsubmit="app.controllers.reviewController.postReview(event, '${dogId}')" >
+      <textarea name="textarea"></textarea>
+      <button type="submit">Submit</button>
+    </form>
+    `
+    document.getElementById('reviews').innerHTML = template;
+    // _rs.buildReview(dogId, cb)
+  }
+
+  postReview(event, dogId) {
+    event.preventDefault();
+    _rs.postReview(dogId, event.target.textarea.value, drawReviews)
+  }
 
   createReview(event) {
     event.preventDefault();

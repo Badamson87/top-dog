@@ -7,7 +7,6 @@ let _reviews = []
 
 export default class reviewsService {
   constructor() {
-    console.log('dog service')
   }
   getDogReviews(dogid) {
     _reviewApi(dogid)
@@ -44,6 +43,20 @@ export default class reviewsService {
         console.error(err)
       })
   }
+
+  postReview(dogId, review, cb) {
+    let payLoad = {
+      dogId,
+      description: review
+    }
+    _reviewApi.post("/", payLoad)
+      .then(res => {
+        _reviews.push(res.data)
+        cb(_reviews)
+      })
+  }
+
+
 
   deleteReview(reviewId) {
     _reviewApi.delete(reviewId)

@@ -16,6 +16,7 @@ router.get("/:dogid", (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
+  req.body.creatorId = req.session.uid
   Reviews.create(req.body)
     .then(review => res.send(review))
     .catch(next)
