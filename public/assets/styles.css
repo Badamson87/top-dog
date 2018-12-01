@@ -21,3 +21,12 @@
 .action.muted:hover{
   opacity: 1;
 }
+
+.card-img-top{
+  max-height: 200px;
+  max-width: 200px;
+}
+
+.cards{
+  margin: 12px;
+}
