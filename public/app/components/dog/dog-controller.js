@@ -10,6 +10,7 @@ let dogObject = {}
 function drawDogs(dogs) {
   debugger
   let template = ''
+  
   dogs.forEach(dog => {
     template += `
     <div class="row"
@@ -23,7 +24,7 @@ function drawDogs(dogs) {
                     <p>Bio: ${dog.description.bio}</p>
                       <div>
                   <div>
-                <i class="fa fa-fw fa-trash action muted" onclick="app.controllers.dogController.destroyDog('${dog._id}')"></i>
+                <i class="fa fa-fw fa-trash action muted" onclick="app.controllers.dogController.deleteDog('${dog._id}')"></i>
               </div>
             </div>
         </div>
@@ -108,10 +109,10 @@ export default class DogController {
 
   // update a dog -post
   updateDog(event, dog) {
-    if (!user._id) {
+    if (!_auth.user._id) {
       console.log("Please Login to Continue")
     }
-    if (user._id != dog._uid) {
+    if (_auth.user._id != dog._uid) {
       console.log("you can only update dogs that are yours")
     }
     event.preventDefault();
@@ -131,25 +132,25 @@ export default class DogController {
 
 
   // delete a dog
-  deleteDog(dog) {
-    if (!user) {
+  deleteDog(dogId) {
+    if (!_auth.user._id) {
       console.log("Please Login to Continue")
     }
-    if (user._id != dog._uid) {
-      console.log("you can only delete dogs that are yours")
-    }
-    _ds.deleteDog(dog.id, drawDogs)
+    //Can't do this here because don't have the complete dog object but just a dog id
+    //let service check this
+    
+    _ds.deleteDog(dogId, _auth.user._id, drawDogs)
   }
 
   //upvote a dog
   upvotedog(dogid) {
-    if (!user) {
+    if (!_auth.user._id) {
       console.log("Please Login to Continue")
     }
     _ds.upvoteDog(dogid)
   }
   downvoteDog(dogid) {
-    if (!user) {
+    if (!_auth.user._id) {
       console.log("Please Login to Continue")
     }
     _ds.downvoteDog(dogid)
