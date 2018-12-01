@@ -6,11 +6,8 @@ let server = express()
 const PORT = process.env.PORT || 3000 //FOR DEPLOYMENT
 
 server.use(express.static(__dirname + '/public'))
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 22bddf1f85589254cc9446980b8332e7081e4c50
 server.use(bodyParser.json())
 server.use(bodyParser.urlencoded({ extended: true }))
 
